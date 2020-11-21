@@ -1,7 +1,9 @@
 
-  
+import Worker from '@/utils/workers/worker.js';
+import { useEffect } from 'react';
+const worker = new Worker();
   // This function gets called at build time
-  export async function getStaticPaths() {
+export async function getStaticPaths() {
     // Call an external API endpoint to get posts
     const res = await fetch('https://.../posts')
     const posts = await res.json()
@@ -28,7 +30,16 @@
   }
   
   function Post({ post }) {
- 
-    return <div></div>
+    useEffect(()=>{
+
+      worker.onmessage = (event) => {
+        
+      };
+    },[])
+    return <div><button onClick={()=>{
+      worker.postMessage({ postMessage: true });
+    }}>
+        <a>click</a>
+      </button></div>
 }
   export default Post
