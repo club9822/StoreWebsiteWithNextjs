@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "nodemon server.js",
+    "dev": "NODE_OPTIONS='--inspect' nodemon server.js",
     "build": "next build",
     "start": "NODE_ENV=production node server.js"
   },
@@ -22,16 +22,17 @@
     "next-images": "^1.4.0",
     "next-offline": "^5.0.3",
     "next-seo": "^4.7.1",
+    "path": "^0.12.7",
     "postcss-flexbugs-fixes": "^4.2.1",
     "postcss-preset-env": "^6.7.0",
     "query-string": "^6.13.6",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-motion": "^0.5.2",
-    "react-query": "^2.26.2",
     "react-redux": "^7.2.0",
     "styled-components": "^5.1.1",
     "tailwindcss": "^1.5.2",
+    "url": "^0.11.0",
     "worker-loader": "^2.0.0"
   },
   "devDependencies": {

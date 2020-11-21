@@ -34,10 +34,28 @@ const nextConfig = {
       },
     ],
   },
+  i18n: {
+    // These are all the locales you want to support in
+    // your application
+    locales: ['en-US', 'fa'],
+    // This is the default locale you want to be used when visiting
+    // a non-locale prefixed path e.g. `/hello`
+    defaultLocale: 'en-US',
+    // This is a list of locale domains and the default locale they
+    // should handle (these are only required when setting up domain routing)
+    domains: [
+      {
+        domain: 'example.com',
+        defaultLocale: 'en-US',
+      },
+      {
+        domain: 'example.ir',
+        defaultLocale: 'fa',
+      },
+    ],
+  },
 }
 module.exports = withOffline(nextConfig)
 module.exports = withFonts();
 module.exports = withImages();
-module.exports = withNextEnv({
-  // Your Next.js config.
-});
+module.exports = withNextEnv(nextConfig);

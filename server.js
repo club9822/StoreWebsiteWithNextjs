@@ -1,7 +1,8 @@
 const express = require('express');
 const next = require('next');
 const cookieParser = require('cookie-parser');
-
+const { join } = require('path')
+const { parse } = require('url')
 const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
@@ -12,6 +13,9 @@ app.prepare()
     const server = express();
 
     server.use(cookieParser());
+    
+    const parsedUrl = parse(req.url, true)
+    const { pathname } = parsedUrl
 
     server.get('/signin', (req, res) => {
       if(req.cookies.token) {
@@ -30,6 +34,12 @@ app.prepare()
     });
 
     server.get('*', (req, res) => {
+      //https://github.com/hanford/next-offline/blob/master/packages/now1-example/server.js
+      // handle GET request to /service-worker.js
+      if (pathname === '/service-worker.js') {
+        const filePath = join(__dirname, '.next', pathname)
+        app.serveStatic(req, res, filePath)
+      } 
       return handle(req, res);
     });
 
