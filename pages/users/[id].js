@@ -1,6 +1,7 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import { getUser } from '../../api_call';
+import Image from 'next/image'
 
 export async function getServerSideProps(context) {
   const id = context?.query?.id;
@@ -36,6 +37,12 @@ function page(props) {
       <a>
         mobile: {mobile}
       </a>
+      <Image
+        src="/me.png"
+        alt="Picture of the author"
+        width={500}
+        height={500}
+      />
     </div>
   );
 }
