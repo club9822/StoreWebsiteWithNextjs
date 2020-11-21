@@ -27,7 +27,7 @@ function Pagination(props) {
                         props.onItemClick(page);
                       }
                     }}
-                    key={`page_${page}`}
+                    key={`page_${page}_users_page`}
                     className={classNames('text-gray-700 text-center bg-gray-400 px-4 py-2 m-2', currentPage === page ? 'text-grey-400' : '')}
                   >
                     {page || ''}

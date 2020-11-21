@@ -7,6 +7,7 @@ export async function getServerSideProps(context) {
   let user = {
     id,
   };
+  
   try {
     user = await getUser(id);
   } catch (e) {
