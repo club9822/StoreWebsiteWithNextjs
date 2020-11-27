@@ -1,7 +1,7 @@
 import cookie from 'js-cookie';
-
+import {isServerSide} from '@/utils/helpers';
 export const setCookie = (key:string, value:string) => {
-  if (process?.browser) {
+  if (!isServerSide) {
     cookie.set(key, value, {
       expires: 1,
       path: '/'
@@ -10,7 +10,7 @@ export const setCookie = (key:string, value:string) => {
 };
 
 export const removeCookie = (key:string) => {
-  if (process?.browser) {
+  if (!isServerSide) {
     cookie.remove(key, {
       expires: 1
     });
@@ -18,7 +18,7 @@ export const removeCookie = (key:string) => {
 };
 
 export const getCookie = (key:string, req:any) => {
-  return process?.browser
+  return !isServerSide
     ? getCookieFromBrowser(key)
     : getCookieFromServer(key, req);
 };

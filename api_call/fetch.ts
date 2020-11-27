@@ -1,5 +1,5 @@
-import {API} from '../constants/api';
-import {getCookie} from '../utils/cookie';
+import {API} from '@/constants/api';
+import {getCookie} from '@/utils/cookie';
 const headers={
   'Accept': 'application/json',
   'Content-Type': 'application/json',
