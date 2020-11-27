@@ -1,1 +1,1 @@
-export const API:string='https://a.com/api/';
+export const API:string = 'https://a.com/api/';

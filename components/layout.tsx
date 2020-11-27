@@ -1,7 +1,10 @@
 import React from 'react';
 import styles from './layout.module.css';
 
-function Layout({ children:any }) {
+interface Props{
+  children?:any;
+}
+function Layout({ children }:Props) {
   return <div className={styles.container}>{children}</div>;
 }
 
