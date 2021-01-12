@@ -39,3 +39,15 @@ const getCookieFromServer = (key:string, req:any) => {
   }
   return rawCookie.split('=')[1];
 };
+
+function createCookie(name, value, days=1) {
+    var cookieToCreate = '';  // Private var
+    if (days) {
+      var date = new Date();
+      date.setTime(date.getTime() + (days*24*60*60*1000));
+      var expires = "; expires=" + date.toGMTString();
+    }
+    else var expires = "";
+    cookieToCreate = name + '=' + value + expires + '; path=/;';
+    document.cookie = cookieToCreate;
+}
