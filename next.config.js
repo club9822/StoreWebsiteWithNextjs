@@ -2,20 +2,23 @@ const withImages = require('next-images');
 const withFonts = require('next-fonts');
 const nextEnv = require('next-env');
 const dotenvLoad = require('dotenv-load');
-const withOffline = require('next-offline')
+const withOffline = require('next-offline');
 
 dotenvLoad();
 
 const withNextEnv = nextEnv();
+const isProd = process.env.NODE_ENV === 'production';
 
 const nextConfig = {
   target: 'serverless',
-  transformManifest: manifest => ['/'].concat(manifest), // add the homepage to the cache
+  transformManifest: (manifest) => ['/'].concat(manifest), // add the homepage to the cache
   // Trying to set NODE_ENV=production when running yarn dev causes a build-time error so we
   // turn on the SW in dev mode so that we can actually test it
   generateInDevMode: true,
   workboxOpts: {
-    swDest: 'static/service-worker.js',
+    swDest: process.env.NEXT_EXPORT
+      ? 'service-worker.js'
+      : 'static/service-worker.js',
     runtimeCaching: [
       {
         urlPattern: /^https?.*/,
@@ -33,6 +36,14 @@ const nextConfig = {
         },
       },
     ],
+  },
+  async rewrites() {
+    return [
+      {
+        source: '/service-worker.js',
+        destination: '/_next/static/service-worker.js',
+      },
+    ];
   },
   i18n: {
     // These are all the locales you want to support in
@@ -54,8 +65,10 @@ const nextConfig = {
       },
     ],
   },
-}
-module.exports = withOffline(nextConfig)
+  // Use the CDN in production and localhost for development.
+  assetPrefix: isProd ? 'https://cdn.mydomain.com' : '',
+};
+module.exports = withOffline(nextConfig);
 module.exports = withFonts();
 module.exports = withImages();
 module.exports = withNextEnv(nextConfig);
